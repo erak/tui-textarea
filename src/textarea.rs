@@ -8,7 +8,7 @@ use crate::search::Search;
 use crate::tui::layout::Alignment;
 use crate::tui::style::{Modifier, Style};
 use crate::tui::text::Spans;
-use crate::tui::widgets::{Block, Widget};
+use crate::tui::widgets::{Block, Widget, Wrap};
 use crate::util::spaces;
 use crate::widget::{Renderer, Viewport};
 use crate::word::{find_word_end_forward, find_word_start_backward};
@@ -37,6 +37,7 @@ use crate::word::{find_word_end_forward, find_word_start_backward};
 pub struct TextArea<'a> {
     lines: Vec<String>,
     block: Option<Block<'a>>,
+    wrap: Option<Wrap>,
     style: Style,
     cursor: (usize, usize), // 0-base
     tab_len: u8,
@@ -134,6 +135,7 @@ impl<'a> TextArea<'a> {
         Self {
             lines,
             block: None,
+            wrap: None,
             style: Style::default(),
             cursor: (0, 0),
             tab_len: 4,
@@ -1040,6 +1042,17 @@ impl<'a> TextArea<'a> {
     /// Get the current style of textarea.
     pub fn style(&self) -> Style {
         self.style
+    }
+
+    /// Get current wrap setting of textarea.
+    pub fn get_wrap(&self) -> Option<Wrap> {
+        self.wrap
+    }
+
+    /// Set text wrapping. By default, wrap is None.
+    /// Wrap type is from tui-rs crate, used for the Paragraph widget.
+    pub fn set_wrap(&mut self, wrap: Option<Wrap>) {
+        self.wrap = wrap
     }
 
     /// Set the block of textarea. By default, no block is set.
