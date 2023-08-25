@@ -8,7 +8,7 @@ use crate::search::Search;
 use crate::tui::layout::Alignment;
 use crate::tui::style::{Modifier, Style};
 use crate::tui::text::Spans;
-use crate::tui::widgets::{Block, Widget, Wrap};
+use crate::tui::widgets::{Block, Widget};
 use crate::util::spaces;
 use crate::widget::{Renderer, Viewport};
 use crate::word::{find_word_end_forward, find_word_start_backward};
