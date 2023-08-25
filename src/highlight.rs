@@ -121,7 +121,9 @@ impl<'a> LineHighlighter<'a> {
         if boundaries.is_empty() {
             spans.push(Span::styled(replace_tabs(line, tab_len), style_begin));
             if cursor_at_end {
-                spans.push(Span::styled(" ", cursor_style));
+                // TODO: If wrapping is enabled on the paragraph widget, pushing U+0020 will
+                // result in the cursor not being rendered. This should be fixed properly.
+                spans.push(Span::styled('\u{00a0}'.to_string(), cursor_style));
             }
             return Spans::from(spans);
         }
